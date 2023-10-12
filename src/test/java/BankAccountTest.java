@@ -7,7 +7,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class BankAccountTest {
 
     BankAccount account = new BankAccount("Ryan", "Nekadio",
-            LocalDate.of(1997, 12, 28), 12345678);
+            LocalDate.of(1997, 12, 28), 12345678,
+            "Savings", -50);
 
     @Test
     public void canReturnFirstName(){
@@ -87,18 +88,19 @@ public class BankAccountTest {
     }
 
     @Test
-    public void canReturnWithdrawal(){
+    public void canReturnWithdrawl(){
         account.deposit(90);
-        int result = account.withdrawal(50);
-        int expected = 40;
+        account.setOverdraft(-150);
+        int result = account.withdrawl(300);
+        int expected = 90;
         assertThat(result).isEqualTo(expected);
     }
 
     @Test
     public void canReturnPayInterest(){
         account.deposit(600);
-        double result = account.payInterest();
-        double expected = 630;
+        int result = account.payInterest(account.getAccountType());
+        int expected = 642;
         assertThat(result).isEqualTo(expected);
     }
 
